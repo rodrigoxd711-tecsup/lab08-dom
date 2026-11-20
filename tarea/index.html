@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Control de stock - Almacen</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f5f7;
+      color: #1f2328;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 32px auto;
+      padding: 0 16px;
+    }
+
+    header { margin-bottom: 20px; }
+    header h1 { margin: 0 0 4px; font-size: 24px; }
+    header p { margin: 0; color: #59636e; font-size: 14px; }
+
+    .panel {
+      background: #fff;
+      border: 1px solid #d1d9e0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .panel h2 { margin: 0 0 12px; font-size: 16px; }
+
+    form {
+      display: grid;
+      grid-template-columns: 110px 1fr 90px auto;
+      gap: 8px;
+    }
+
+    input {
+      padding: 8px 10px;
+      border: 1px solid #d1d9e0;
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    input:focus { outline: 2px solid #0969da; outline-offset: -1px; }
+
+    button {
+      padding: 8px 12px;
+      border: 1px solid #d1d9e0;
+      border-radius: 6px;
+      background: #f6f8fa;
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #eef1f4; }
+    .primario { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+    .primario:hover { background: #1a5fd0; }
+    .peligro { color: #cf222e; }
+
+    #mensaje { min-height: 20px; margin: 10px 0 0; font-size: 14px; }
+    .error { color: #cf222e; }
+    .ok { color: #1a7f37; }
+
+    .barra {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .barra h2 { margin: 0; }
+    #buscar { width: 220px; }
+
+    ul { list-style: none; margin: 0; padding: 0; }
+
+    li {
+      display: grid;
+      grid-template-columns: 1fr 90px 70px auto auto;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0;
+      border-top: 1px solid #eaeef2;
+    }
+
+    li:first-child { border-top: none; }
+    .stock { font-weight: 600; text-align: right; }
+    .bajo .stock { color: #bc4c00; }
+    .cantidad { width: 70px; }
+    #vacio { color: #59636e; font-size: 14px; margin: 0; }
+
+    @media (max-width: 600px) {
+      form, li { grid-template-columns: 1fr 1fr; }
+      #buscar { width: 100%; }
+      .barra { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Control de stock del almacen</h1>
+      <p>Registra materiales y sus salidas. Una salida nunca puede dejar el stock en negativo.</p>
+    </header>
+
+    <section class="panel">
+      <h2>Registrar material</h2>
+      <form id="formMaterial">
+        <input id="codigo" type="text" placeholder="Codigo" autocomplete="off">
+        <input id="nombre" type="text" placeholder="Nombre del material" autocomplete="off">
+        <input id="stock" type="number" placeholder="Stock" min="0" step="1">
+        <button type="submit" class="primario">Registrar</button>
+      </form>
+      <p id="mensaje"></p>
+    </section>
+
+    <section class="panel">
+      <div class="barra">
+        <h2>Materiales</h2>
+        <input id="buscar" type="text" placeholder="Buscar por codigo o nombre" autocomplete="off">
+      </div>
+      <ul id="listaMateriales"></ul>
+      <p id="vacio" hidden>No hay materiales que coincidan.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
